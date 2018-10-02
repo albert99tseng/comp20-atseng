@@ -1,6 +1,6 @@
 .software{
-	width:1204px;
-	height:1211px;
+	width:432px;
+	height:591px;
 }
 
 @media screen
@@ -14,7 +14,7 @@
 	and (min-width: 1000px)
 	and (max-width: 1200px){
 		.software{
-			background: url(software.png) 602px 0px;
+			background: url(software.png) 770px 0px;
 
 		}
 	}
@@ -23,7 +23,8 @@
 	and (min-width: 800px)
 	and (max-width: 1000px){
 		.software{
-			background: url(software.png) 1204px 0px;
+			background: url(software.png) 345px 0px;
+			width:345px;
 
 		}
 	}
@@ -32,7 +33,9 @@
 	and (min-width: 600px)
 	and (max-width: 800px){
 		.software{
-			background: url(software.png) 0px -1211px;
+			background: url(software.png) 0px -591px;
+			height: 625px;
+			width:725px;
 
 		}
 	}
@@ -40,7 +43,9 @@
 @media screen
 	and (max-width: 600px){
 		.software{
-			background: url(software.png) 1204px -1211px;
+			background: url(software.png) -725px -580px;
+			height: 635px;
+			width: 480px;
 
 		}
 	}
