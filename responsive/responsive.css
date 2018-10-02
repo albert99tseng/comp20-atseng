@@ -1,31 +1,46 @@
 .software{
-	background: url("../responsive/software.png");
 	width:1204px;
 	height:1211px;
 }
 
-@media screen and (max-width: 1024px){
-	.software{
-		left: 50%;
-		margin-left: -100px;
-
+@media screen
+	and (min-width: 1200px){
+		.software{
+			background: url(software.png) 0px 0px;
+		}
 	}
-}
 
-@media screen and (max-width: 600px){
-	.software{
-		left: 55%;
-		margin-left: -100px;
+@media screen
+	and (min-width: 1000px)
+	and (max-width: 1200px){
+		.software{
+			background: url(software.png) 602px 0px;
 
+		}
 	}
-}
 
+@media screen
+	and (min-width: 800px)
+	and (max-width: 1000px){
+		.software{
+			background: url(software.png) 1204px 0px;
 
-@media screen 
-  and (min-device-width: 1200px) 
-  and (max-device-width: 1600px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (min-resolution: 192dpi) { 
+		}
+	}
 
-}
+@media screen
+	and (min-width: 600px)
+	and (max-width: 800px){
+		.software{
+			background: url(software.png) 0px -1211px;
 
+		}
+	}
+
+@media screen
+	and (max-width: 600px){
+		.software{
+			background: url(software.png) 1204px -1211px;
+
+		}
+	}
