@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>We Do</title>
+      <link rel="stylesheet" href="style.css" type="text/css" />
+   </head>
+
+   <body>
+      <h1 id="title"> We Do </h1>
+   	  <video src="https://www.cs.tufts.edu/comp/20/wedo.mp4" id="wedo" controls></video>
+      <div id="lyrics"></div>
+
+      <script>
+         var video = document.getElementsByTagName("video")[0];
+         var caption = document.getElementById("lyrics");
+         
+         function modifyText(string) {
+           caption.innerHTML = "<p>" + string + "<p>";
+         }
+        
+         video.addEventListener("timeupdate", function() {
+         
+                 if (video.currentTime < 4) {
+                         caption.innerHTML ="";
+                 }
+                 else if (video.currentTime > 4 && video.currentTime < 6) {
+                         modifyText("Who controls the British crown?");
+                 }
+                 else if (video.currentTime > 6 && video.currentTime < 8) {
+                         modifyText("Who keeps the metric system down?");
+                 }  
+                 else if (video.currentTime > 8 && video.currentTime <11) {
+                         modifyText("We do, we do!");
+                 }
+                 else if (video.currentTime > 11 && video.currentTime < 14) {
+                         modifyText("Who keeps Atlantis off the maps?");
+                 }
+                 else if (video.currentTime > 14 && video.currentTime < 16) {
+                         modifyText("Who keeps the Martians under wraps?");
+                 } 
+                 else if (video.currentTime > 16 && video.currentTime < 19) {
+                         modifyText("We do, we do!");
+                 } 
+                 else if (video.currentTime > 19 && video.currentTime < 24) {
+                         modifyText("Who holds back the electric car?");
+                 }   
+                 else if (video.currentTime > 24 && video.currentTime < 29) {
+                         modifyText("Who makes Steve Guttenberg a star?");
+                 }  
+                 else if (video.currentTime > 29 && video.currentTime < 33) {
+                         modifyText("We do, we do!");
+                 }
+                 else if (video.currentTime > 33 && video.currentTime < 35) {
+                         modifyText("Who robs cavefish of their sight?");
+                 } 
+                 else if (video.currentTime > 35 && video.currentTime < 37) {
+                         modifyText("Who rigs every Oscar night?");
+                 } 
+                 else if (video.currentTime > 37 && video.currentTime < 58) {
+                         modifyText("We do!");
+                 } 
+                 else {
+                         modifyText("We do!");
+
+                 } 
+         
+          }, false);
+         
+      </script>
+   </body>
+</html>
