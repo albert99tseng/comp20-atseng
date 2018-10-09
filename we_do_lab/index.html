@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>We Do</title>
+      <link rel="stylesheet" href="style.css" type="text/css" />
+   </head>
+
+   <body>
+      <h1 id="title"> We Do </h1>
+     <video src="https://www.cs.tufts.edu/comp/20/wedo.mp4" id="wedo" controls></video>
+      <div id="lyrics"></div>
+
+      <script>
+         var video = document.getElementsByTagName("video")[0];
+         var caption = document.getElementById("lyrics");
+         
+         function modifyText(string) {
+           caption.innerHTML = "<p>" + string + "<p>";
+         }
+        
+         video.addEventListener("timeupdate", function() {
+         
+                 if (video.currentTime < 4) {
+                         caption.innerHTML ="";
+                 }
+                 else if (video.currentTime > 4 && video.currentTime < 6) {
+                         modifyText("Who controls the British crown?");
+                 }
+                 else if (video.currentTime > 6 && video.currentTime < 8) {
+                         modifyText("Who keeps the metric system down?");
+                 }  
+                 else if (video.currentTime > 8 && video.currentTime <11) {
+                         modifyText("We do, we do!");
+                 }
+                 else if (video.currentTime > 11 && video.currentTime < 14) {
+                         modifyText("Who keeps Atlantis off the maps?");
+                 }
+                 else if (video.currentTime > 14 && video.currentTime < 17) {
+                         modifyText("Who keeps the Martians under wraps?");
+                 } 
+                 else if (video.currentTime > 17 && video.currentTime < 20) {
+                         modifyText("We do, we do!");
+                 } 
+                
+         
+      </script>
+   </body>
+</html>

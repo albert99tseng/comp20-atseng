@@ -1,0 +1,18 @@
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+}
+.bold {
+    font-style: bold;
+}
+#lyrics {
+    text-align: center;
+}
+#title {
+    text-align: center;
+}
+video {
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+}
