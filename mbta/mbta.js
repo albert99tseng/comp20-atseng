@@ -85,9 +85,19 @@ showTrainData(timedata){
 		pos = new google.maps.LatLng(stations1[i].lat, stations1[i].lon);
 		stationLatLongs.push(pos);
 		stationNames.push(stations1[i].stop);
-		var marker
+		var marker == new google.maps.Marker({animation: google.maps.Animation.DROP,
+					  position: pos, title: stations1[i].stop, icon:"mbta.png"})
+		marker.setMap(map);
 
+		google.maps.event.addListener(marker, 'click', function(){
+		var sched = getNextTrains(this.title, timedata);
+		infowindow.setControl("<h1>" + this.title.toString() + "</h1>" + sched);
+		infowindow.open(map,this);
+		});
 	}
+
+3
+
 
 }
 
