@@ -203,7 +203,8 @@ function haversineDistance(coords1, coords2, isMiles) {
         return d;
 }
 
-get_info(){
+function get_info(){
+
 
 
 }
@@ -211,387 +212,338 @@ get_info(){
 function setMarker(){
 
 	var image_marker = 'mbta.png';
+	var infowindow = new google.maps.InfoWindow();
 
 	//Alewife 
   	var Alewife = new google.maps.Marker({
    		position: {lat: 42.395428, lng: -71.142483},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Alewife"
  	});
   	Alewife.setMap(map);
 
   	//pop up window to show the time of the trains
-  	google.maps.event.addListener(Alewife, 'click', function()){
-  		staion_info = get_info(Alewife.title);
-  		infowindow.setContent(Alewife.title + "<br /> " + station_info);
-  		infowindow.open(map, Alewife);
-  	}
+  	google.maps.event.addListener(Alewife, 'click', function(){
+  		//staion_info = get_info(Alewife.title);
+  		infowindow.setContent(Alewife.title);
+  		infowindow.open(map,Alewife);
+  	});
 
   	//Davis 
   	var Davis = new google.maps.Marker({
    		position: {lat: 42.39674, lng: -71.121815},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Davis"
  	});
   	Davis.setMap(map);
+
+  	google.maps.event.addListener(Davis, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Davis.title);
+  		infowindow.open(map,Davis);
+  	});
 
   	//Porter Square
   	var Porter_Square = new google.maps.Marker({
    		position: {lat: 42.3884, lng: -71.11914899999999},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Porter Sqaure"
  	});
+
   	Porter_Square.setMap(map);
 
+  	google.maps.event.addListener(Porter_Square, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Porter_Square.title);
+  		infowindow.open(map,Porter_Square);
+  	});
+
+  	//Harvard Square
   	var Harvard_Square = new google.maps.Marker({
    		position: {lat: 42.373362, lng: -71.118956},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Harvard Sqaure"
  	});
   	Harvard_Square.setMap(map);
 
+  	google.maps.event.addListener(Harvard_Square, 'click', function(){
+  		//staion_info = get_info(Harvard_sqaure.title);
+  		infowindow.setContent(Harvard_Square.title);
+  		infowindow.open(map,Harvard_Square);
+  	});
+
+  	//Central Sqaure
   	var Central_Square = new google.maps.Marker({
    		position: {lat: 42.365486, lng: -71.103802},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Central Square"
  	});
   	Central_Square.setMap(map);
 
+  	google.maps.event.addListener(Central_Square, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Central_Square.title);
+  		infowindow.open(map,Central_Square);
+  	});
+
+  	//Kendall/MIT
   	var Kendall_MIT = new google.maps.Marker({
    		position: {lat: 42.36249079, lng: -71.08617653},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Kendall/MIT"
  	});
   	Kendall_MIT.setMap(map);
 
+  	google.maps.event.addListener(Kendall_MIT, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Kendall_MIT.title);
+  		infowindow.open(map,Kendall_MIT);
+  	});
+
+  	//Charles/MGH
   	var Charles_MGH = new google.maps.Marker({
    		position: {lat: 42.361166, lng: -71.070628},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Charles/MGH"
  	});
   	Charles_MGH.setMap(map);
 
+  	google.maps.event.addListener(Charles_MGH, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Charles_MGH.title);
+  		infowindow.open(map,Charles_MGH);
+  	});
+
+  	//Park Street
   	var Park_Street = new google.maps.Marker({
    		position: {lat: 42.35639457 , lng: -71.0624242},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Park Street"
  	});
   	Park_Street.setMap(map);
 
+  	google.maps.event.addListener(Park_Street, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Park_Street.title);
+  		infowindow.open(map,Park_Street);
+  	});
+
+  	//Downtown Crosseing
   	var Downtown_Crossing = new google.maps.Marker({
    		position: {lat: 42.355518, lng: -71.060225},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Downtown Crossing"
  	});
   	Downtown_Crossing.setMap(map);
 
+  	google.maps.event.addListener(Downtown_Crossing, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Downtown_Crossing.title);
+  		infowindow.open(map,Downtown_Crossing);
+  	});
+
+  	//South Station
   	var South_Station = new google.maps.Marker({
    		position: {lat: 42.352271, lng: -71.05524200000001},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "South Station"
  	});
   	South_Station.setMap(map);
 
+  	google.maps.event.addListener(South_Station, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(South_Station.title);
+  		infowindow.open(map,South_Station);
+  	});
+
+  	//Broadway
   	var Broadway = new google.maps.Marker({
    		position: {lat: 42.342622, lng: -71.056967},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Broadway"
  	});
   	Broadway.setMap(map);
 
+  	google.maps.event.addListener(Broadway, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Broadway.title);
+  		infowindow.open(map,Broadway);
+  	});
+
+  	//Andrew
   	var Andrew = new google.maps.Marker({
    		position: {lat: 42.330154, lng: -71.057655},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Andrew"
  	});
   	Andrew.setMap(map);
 
+  	google.maps.event.addListener(Andrew, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Andrew.title);
+  		infowindow.open(map,Andrew);
+  	});
+
+  	//JFK/UMass
   	var JFK_UMass = new google.maps.Marker({
    		position: {lat:42.320685, lng: -71.052391},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "JFK/UMass"
  	});
   	JFK_UMass.setMap(map);
 
+  	google.maps.event.addListener(JFK_UMass, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(JFK_UMass.title);
+  		infowindow.open(map,JFK_UMass);
+  	});
+
+  	//North Quincy
   	var North_Quincy = new google.maps.Marker({
    		position: {lat:42.275275, lng: -71.029583},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "North Quincy"
  	});
   	North_Quincy.setMap(map)
 
+  	google.maps.event.addListener(North_Quincy, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(North_Quincy.title);
+  		infowindow.open(map,North_Quincy);
+  	});
+
+  	//Wallaston
   	var Wallaston = new google.maps.Marker({
    		position: {lat:42.2665139, lng: -71.0203369},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Wallaston"
  	});
   	Wallaston.setMap(map);
 
+  	google.maps.event.addListener(Wallaston, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Wallaston.title);
+  		infowindow.open(map,Wallaston);
+  	});
+
+  	//Quincy Center
   	var Quincy_Center = new google.maps.Marker({
    		position: {lat:42.251809, lng: -71.005409},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Quincy Center"
  	});
   	Quincy_Center.setMap(map);
 
+  	google.maps.event.addListener(Quincy_Center, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Quincy_Center.title);
+  		infowindow.open(map,Quincy_Center);
+  	});
+
+  	//Quincy Adams
   	var Quincy_Adams = new google.maps.Marker({
    		position: {lat: 42.233391, lng: -71.007153 },
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Quincy Adams"
  	});
   	Quincy_Adams.setMap(map);
 
+  	google.maps.event.addListener(Quincy_Adams, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Quincy_Adams.title);
+  		infowindow.open(map,Quincy_Adams);
+  	});
+
+  	//Braintree
   	var Braintree = new google.maps.Marker({
    		position: {lat: 42.2078543, lng: -71.0011385 },
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Braintree"
  	});
   	Braintree.setMap(map);
 
+  	google.maps.event.addListener(Braintree, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Braintree.title);
+  		infowindow.open(map,Braintree);
+  	});
+
+  	//Savin Hill
   	var Savin_Hill = new google.maps.Marker({
    		position: {lat: 42.31129, lng: -71.053331 },
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Savin Hill"
  	});
   	Savin_Hill.setMap(map);
 
+  	google.maps.event.addListener(Savin_Hill, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Savin_Hill.title);
+  		infowindow.open(map,Savin_Hill);
+  	});
+
+  	//Fells Corner
   	var Fells_Corner = new google.maps.Marker({
    		position: {lat: 42.300093, lng: -71.061667 },
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Fells Corner"
  	});
   	Fells_Corner.setMap(map);
 
+  	google.maps.event.addListener(Fells_Corner, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Fells_Corner.title);
+  		infowindow.open(map,Fells_Corner);
+  	});
+
+  	//Shawmut
   	var Shawmut = new google.maps.Marker({
    		position: {lat: 42.29312583, lng: -71.06573796000001 },
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Shawmut"
  	});
   	Shawmut.setMap(map);
 
+  	google.maps.event.addListener(Shawmut, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Shawmut.title);
+  		infowindow.open(map,Shawmut);
+  	});
+
+  	//Ashmont
   	var Ashmont = new google.maps.Marker({
    		position: {lat: 42.284652, lng: -71.06448899999999},
     	map: map,
-    	icon: image_marker
+    	icon: image_marker,
+    	title: "Ashmont"
  	});
   	Ashmont.setMap(map);
 
-}
-
-
-/*
-
-var curr_long = 0;
-var curr_lat = 0;
-var request = new XHMLHttpRequest();
-var curr_location = new google.maps.LatLng(curr_lat, curr_long);
-var myOptions = {
-	zoom: 13,
-	center: curr_location,
-	mapTypeId: google.maps.MapType.ROADMAP
-}
-var mark;
-var marks;
-var map;
-var infowindow = new google.maps.InfoWindow();
-var numstations1 = 13; //stations from alewife to JFK/UMass
-var numstations2 = 5; //stations from North Quicy to Braintree
-var numstations3 = 4; //statins from Savin Hill to Ashmont
-
-var stations1 = [{"stop_name": "Alewife", "lat": 42.395428, "lon": -71.142483},
-			  {"stop_name": "Davis", "lat": 42.39674, "lon": -71.121815},
-			  {"stop_name": "Porter Square", "lat": 42.3884, "lon": -71.11914899999999},
-			  {"stop_name": "Harvard Square", "lat": 42.373362, "lon": -71.118956},
-			  {"stop_name": "Central Square", "lat": 42.365486, "lon": -71.103802},
-			  {"stop_name": "Kendall/MIT", "lat": 42.36249079, "lon": -71.08617653},
-			  {"stop_name": "Charles/MGH", "lat": 42.361166, "lon": -71.070628},
-			  {"stop_name": "Park Street", "lat": 42.35639457, "lon": -71.0624242},
-			  {"stop_name": "Downtown Crossing", "lat": 42.355518, "lon": -71.060225},
-			  {"stop_name": "South Station", "lat": 42.352271, "lon": -71.05524200000001},
-			  {"stop_name": "Broadway", "lat": 42.342622, "lon": -71.056967},
-			  {"stop_name": "Andrew", "lat":  42.330154, "lon": -71.057655},
-			  {"stop_name": "JFK/UMass", "lat":   42.320685, "lon": -71.052391}]
-
-var stations2 = [{"stop_name": "North Quincy", "lat": 42.275275, "lon": -71.029583},
-			  {"stop_name": "Wallaston", "lat": 42.2665139, "lon": -71.0203369},
-			  {"stop_name": "Quincy Center", "lat": 42.251809, "lon": -71.005409},
-			  {"stop_name": "Quicny Adams", "lat": 42.233391, "lon": -71.007153},
-			  {"stop_name": "Braintree", "lat": 42.2078543, "lon": -71.0011385}]
-
-var stations3 = [{"stop_name": "Savin Hill", "lat": 42.31129, "lon": -71.053331},
-			  {"stop_name": "Fells Corner", "lat": 42.300093, "lon": -71.061667},
-			  {"stop_name": "Shawmut", "lat": 42.29312583, "lon": -71.06573796000001},
-			  {"stop_name": "Ashmont", "lat": 42.284652, "lon": -71.06448899999999}]
-
-
-function init_map()
-{
-	map = new google.maps.Map(document.getElementId("map", myOptions))
-	Location();
-}
-
-//Gets the current location using geolocation
-function myLocation()
-{
-	if (navigator.geolocation){
-		navigator.geolocation.getCurrentPosition(function(position){
-			curr_lat = position.coords.latitude;
-			curr_long = position.coords.longitude;
-			renderMap();
-		});
-	}
-	else{
-		alert("Geolocation is not supported.")
-	}
-}
-
-// Run the API request of the redline schedule
-function renderMap(){
-	request.open('GET', "https://chicken-of-the-sea.herokuapp.com/redline/schedule.json", true);
-	request.send();
-	request.onreadystatechange = function(){
-		if (request.readyState == XHMLHttpRequest.DONE){
-			if (request.readyState != 200){
-				alert("Can't load train data")
-			}
-			else{
-				var timedata = JSON.parse(request.responseText);
-				showTrainData(timedata);
-			}
-		}
-	}
-}
-
-
-
-// places markers at each station and creates the polyline paths
-function showTrainData(timedata){
-
-	var stationLatLongs = [];
-	var stationNames = [];
-
-	// creating markers for red line
-	for (var i = 0; i < numstations1; i++){
-		pos = new google.maps.LatLng(stations1[i].lat, stations1[i].lon);
-		stationLatLongs.push(pos);
-		stationNames.push(stations1[i].stop);
-		var marker == new google.maps.Marker({animation: google.maps.Animation.DROP,
-					  position: pos, title: stations1[i].stop, icon:"mbta.png"})
-		marker.setMap(map);
-
-		google.maps.event.addListener(marker, 'click', function(){
-		var sched = getNextTrains(this.title, timedata);
-		infowindow.setControl("<h1>" + this.title.toString() + "</h1>" + sched);
-		infowindow.open(map,this);
-		});
-	}
-
-	//creating markers for first branch of red line
-	for (var i = 0; i < numstations2; i++){
-		pos = new google.maps.LatLng(stations2[i].lat, stations2[i].lon);
-		stationLatLongs.push(pos);
-		stationNames.push(stations2[i].stop);
-		var marker == new google.maps.Marker({animation: google.maps.Animation.DROP,
-					  position: pos, title: stations2[i].stop, icon:"mbta.png"})
-		marker.setMap(map);
-
-		google.maps.event.addListener(marker, 'click', function(){
-		var sched = getNextTrains(this.title, timedata);
-		infowindow.setControl("<h1>" + this.title.toString() + "</h1>" + sched);
-		infowindow.open(map,this);
-		});
-	}
-
-	// creating markers for second branch of red line
-	for (var i = 0; i < numstations3; i++){
-		pos = new google.maps.LatLng(stations3[i].lat, stations3[i].lon);
-		stationLatLongs.push(pos);
-		stationNames.push(stations3[i].stop);
-		var marker == new google.maps.Marker({animation: google.maps.Animation.DROP,
-					  position: pos, title: stations3[i].stop, icon:"mbta.png"})
-		marker.setMap(map);
-
-		google.maps.event.addListener(marker, 'click', function(){
-		var sched = getNextTrains(this.title, timedata);
-		infowindow.setControl("<h1>" + this.title.toString() + "</h1>" + sched);
-		infowindow.open(map,this);
-		});
-	}
-
-
-	//Create paths 
-	var brain_path = stations1.map(function(station){
-		return new google.maps.LatLng(station.lat, station.lon)
-	});
-
-	brain_path = brain_path.concat(stations2.map(function(station) {
-		return new google.maps.LatLng(station.lat, station.lon);
-	}));
-
-	var ash_path = stations3.map(function(station){
-		return new google.maps.LatLng(station.lat, station.lon);
-	});
-
-	//Drawing the polylines 
-	var draw_path1 = google.maps.Polylines({
-		path: brain_path;
-		strokeColor: "#FF0000",
-		strokeOpacity: 1.0,
-		strokeWeight: 2
-	});
-
-	var draw_path2 = google.maps.Polylines({
-		path: ash_path;
-		strokeColor: "#FF0000",
-		strokeOpacity: 1.0,
-		strokeWeight: 2
-	});
-
-	//Adding the polylines 
-	draw_path1.setMap(map);
-	draw_path2.setMap(map);
-
-	//finding the current position 
-	my_position = new google.maps.LatLng(curr_lat, curr_long);
-	map.panto(my_position);
-
-	marker = new google.maps.Marker({
-		position: my_position;
-		title: " My Location",
-		icon: "train.png";
-	})
-
-//finding the shortest distance 
-function nearest_station(me, marker, stations, names){
-
-
-
+  	google.maps.event.addListener(Ashmont, 'click', function(){
+  		//staion_info = get_info(Davis.title);
+  		infowindow.setContent(Ashmont.title);
+  		infowindow.open(map,Ashmont);
+  	});
 
 }
-
-
-
-}
-
-
-
-
-
-
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
