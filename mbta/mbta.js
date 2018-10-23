@@ -1,4 +1,5 @@
 var map;
+var request = new XMLHttpRequest();
 var curr_long = -71.05524200000001;
 var curr_lat = 42.352271;
 var option = {
@@ -49,6 +50,7 @@ function myLocation(){
 		navigator.geolocation.getCurrentPosition(function(position){
 			curr_lat = position.coords.latitude;
 			curr_long = position.coords.longitude;
+			renderMap();
 		});
 	}
 	else{
@@ -56,6 +58,35 @@ function myLocation(){
 	}
 
 }
+
+function renderMap(){
+	request.open('GET', 'https://chicken-of-the-sea.herokuapp.com/redline/schedule.json', true);
+	request.send();
+	request.onreadystatechange = function(){
+		if (request.readyState == XMLHttpRequest.DONE){
+			if (request.status != 200){
+				alert("Can't load train data")
+			}
+			else{
+				var timedata = JSON.parse(request.responseText);
+				showTrainData(timedata);
+			}
+		}
+	}
+}
+
+function showTrainData(timedata){
+	user = new google.maps.LatLng(curr_lat, curr_long);
+    map.panTo(user);
+
+    marker = new google.maps.Marker({
+      position: user,
+      title: "Current location",
+      icon:"me.png"
+    });
+    marker.setMap(map); 
+}
+
 
 function setMarker(){
 
