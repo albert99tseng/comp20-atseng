@@ -1,44 +1,65 @@
 var map;
-var curr_long = -71.0589;
-var curr_lat = 42.3601;
+var curr_long = -71.05524200000001;
+var curr_lat = 42.352271;
 var option = {
 	center: {lat: curr_lat, lng: curr_long},
-    zoom: 13
+    zoom: 15
 }
-//var request = new XHMLHttpRequest();
-// var stations1 = [{"stop_name": "Alewife", "lat": 42.395428, "lon": -71.142483},
-// 			  {"stop_name": "Davis", "lat": 42.39674, "lon": -71.121815},
-// 			  {"stop_name": "Porter Square", "lat": 42.3884, "lon": -71.11914899999999},
-// 			  {"stop_name": "Harvard Square", "lat": 42.373362, "lon": -71.118956},
-// 			  {"stop_name": "Central Square", "lat": 42.365486, "lon": -71.103802},
-// 			  {"stop_name": "Kendall/MIT", "lat": 42.36249079, "lon": -71.08617653},
-// 			  {"stop_name": "Charles/MGH", "lat": 42.361166, "lon": -71.070628},
-// 			  {"stop_name": "Park Street", "lat": 42.35639457, "lon": -71.0624242},
-// 			  {"stop_name": "Downtown Crossing", "lat": 42.355518, "lon": -71.060225},
-// 			  {"stop_name": "South Station", "lat": 42.352271, "lon": -71.05524200000001},
-// 			  {"stop_name": "Broadway", "lat": 42.342622, "lon": -71.056967},
-// 			  {"stop_name": "Andrew", "lat":  42.330154, "lon": -71.057655},
-// 			  {"stop_name": "JFK/UMass", "lat":   42.320685, "lon": -71.052391}]
 
-// var stations2 = [{"stop_name": "North Quincy", "lat": 42.275275, "lon": -71.029583},
-// 			  {"stop_name": "Wallaston", "lat": 42.2665139, "lon": -71.0203369},
-// 			  {"stop_name": "Quincy Center", "lat": 42.251809, "lon": -71.005409},
-// 			  {"stop_name": "Quicny Adams", "lat": 42.233391, "lon": -71.007153},
-// 			  {"stop_name": "Braintree", "lat": 42.2078543, "lon": -71.0011385}]
+var Braintree_polyline = [
+	{lat: 42.320685 , lng:-71.052391}, //JFK
+	{lat: 42.275275 , lng:-71.029583}, // N Quincy
+	{lat: 42.2665139 , lng:-71.0203369}, // Wollaston
+	{lat: 42.251809 , lng:-71.005409}, // Quincy Center
+	{lat: 42.233391 , lng:-71.007153}, // Quincy Adams
+	{lat: 42.2078543 , lng:-71.0011385} // Braintree
+]; 
 
-// var stations3 = [{"stop_name": "Savin Hill", "lat": 42.31129, "lon": -71.053331},
-// 			  {"stop_name": "Fells Corner", "lat": 42.300093, "lon": -71.061667},
-// 			  {"stop_name": "Shawmut", "lat": 42.29312583, "lon": -71.06573796000001},
-// 			  {"stop_name": "Ashmont", "lat": 42.284652, "lon": -71.06448899999999}]
+var Ashmont_polyline = [
+	{lat: 42.395428 , lng:-71.142483}, // Alewife
+	{lat: 42.39674 , lng:-71.121815}, // Davis
+	{lat: 42.3884 , lng:-71.11914899999999}, // Porter
+	{lat: 42.373362 , lng:-71.118956}, // Harvard
+	{lat: 42.365486 , lng:-71.103802}, //Central
+	{lat: 42.36249079 , lng:-71.08617653}, // Kendall
+	{lat: 42.361166 , lng:-71.070628}, // Charles
+	{lat: 42.35639457 , lng:-71.0624242}, // Park
+	{lat: 42.355518 , lng:-71.060225}, // Downtown
+	{lat: 42.352271 , lng:-71.05524200000001}, // South
+	{lat: 42.342622 , lng:-71.056967}, // Broadway
+	{lat: 42.330154 , lng:-71.057655}, // Andrew
+	{lat: 42.320685 , lng:-71.052391}, //JFK
+	{lat: 42.31129 , lng:-71.053331}, // Savin Hill
+	{lat: 42.300093 , lng:-71.061667}, // Fields Corner
+	{lat: 42.29312583 , lng:-71.06573796000001}, //Shawmut
+	{lat: 42.284652 , lng:-71.06448899999999}, //Ashmont
+];
 
 
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), option);
-    //myLocation();
+    myLocation();
+    setMarker();
+    getPolyline();
+}
 
+function myLocation(){
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(function(position){
+			curr_lat = position.coords.latitude;
+			curr_long = position.coords.longitude;
+		});
+	}
+	else{
+		alert("Geolocation is not supported.")
+	}
 
- 	var image_marker = 'mbta.png';
+}
+
+function setMarker(){
+
+	var image_marker = 'mbta.png';
   	var Alewife = new google.maps.Marker({
    		position: {lat: 42.395428, lng: -71.142483},
     	map: map,
@@ -193,19 +214,28 @@ function initMap() {
  	});
   	Ashmont.setMap(map);
 
-
-
-
-
-
-
-
-
 }
 
+function getPolyline(){
 
+	var Ashmont_path = new google.maps.Polyline( {
+                path:Ashmont_polyline,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+        });
+        Ashmont_path.setMap(map);
 
-
+    var Braintree_path = new google.maps.Polyline( {
+                path:Braintree_polyline,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+        });
+        Braintree_path.setMap(map);
+}
 /*
 function myLocation(){
 	if (navigator.geolocation){
