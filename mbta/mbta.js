@@ -6,6 +6,9 @@ var option = {
 	center: {lat: curr_lat, lng: curr_long},
     zoom: 15
 }
+var distanceToMyStation = 0;
+var closestStation = "Closest Station";
+shortest_distance = haversineDistance([curr_long,curr_lat], [-71.142483, 42.395428], true);
 
 var Braintree_polyline = [
 	{lat: 42.320685 , lng:-71.052391}, //JFK
@@ -112,13 +115,15 @@ function showTrainData(timedata){
       title: "Current location",
       icon:"me.png"
     });
+    marker.setMap(map);
 
     //pop up window for my location
     google.maps.event.addListener(marker, 'click', function(){
   		//staion_info = get_info(Alewife.title);
   		//infowindow.setContent(marker.title);
   		info = nearestStation();
-  		infowindow.setContent(info);
+  		infowindow.setContent("Closest station is: " + closest_station + " which is " + shortest_distance 
+  							   + " miles away.", info);
   		infowindow.open(map,marker);
   	});
 /*
@@ -133,8 +138,6 @@ function showTrainData(timedata){
 }
 
 function nearestStation(){
-
-	var shortest_distance = haversineDistance([curr_long,curr_lat], [-71.142483, 42.395428], true);
 	var longitude = -71.142483;
 	var latitude = 42.395428;
 
@@ -144,7 +147,7 @@ function nearestStation(){
 
 		if (distance < shortest_distance) {
 			shortest_distance = distance;
-			closest_station = station;
+			closest_station = i;
 			distance_to_station = distance;
 			latitude = coords[1];
 			longitude = coords[0];
@@ -162,8 +165,11 @@ function nearestStation(){
         strokeOpacity: 1.0,
         strokeWeight: 2
     });
+
     nearby_path.setMap(map);
 
+    console.log(shortest_distance);
+    console.log(closest_station);
 }
 
 function getPolyline(){
@@ -211,7 +217,7 @@ function haversineDistance(coords1, coords2, isMiles) {
 
         if(isMiles) d /= 1.60934;
 
-        return d;
+       	return d;
 }
 
 function get_info(){
