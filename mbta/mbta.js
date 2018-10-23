@@ -101,6 +101,9 @@ function renderMap(){
 }
 
 function showTrainData(timedata){
+
+	var infowindow = new google.maps.InfoWindow();
+
 	user = new google.maps.LatLng(curr_lat, curr_long);
     map.panTo(user);
 
@@ -111,6 +114,13 @@ function showTrainData(timedata){
     });
 
     //pop up window for my location
+    google.maps.event.addListener(marker, 'click', function(){
+  		//staion_info = get_info(Alewife.title);
+  		//infowindow.setContent(marker.title);
+  		info = nearestStation();
+  		infowindow.setContent(info);
+  		infowindow.open(map,marker);
+  	});
 /*
     google.maps.event.addListener(user, 'click', function() {
         info = nearestStation(user, marker, stationLatLongs, stationNames);
@@ -141,10 +151,11 @@ function nearestStation(){
 		}
 	}
 
-	var closest_position = new google.maps.LatLng(latitude. longitude);
+	var closest_position = new google.maps.LatLng(latitude, longitude);
 	var nearby_station = [user, closest_position];
 
-	 var nearby_path = new google.maps.Polyline({
+//draws the path to the nearest mbta 
+	var nearby_path = new google.maps.Polyline({
     	path:nearby_station,
         geodesic: true,
         strokeColor: '#0000FF',
@@ -158,7 +169,7 @@ function nearestStation(){
 function getPolyline(){
 
 	var Ashmont_path = new google.maps.Polyline( {
-                path:Ashmont_polyline,
+               	path:Ashmont_polyline,
                 geodesic: true,
                 strokeColor: '#FF0000',
                 strokeOpacity: 1.0,
