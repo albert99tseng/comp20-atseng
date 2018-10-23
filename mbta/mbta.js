@@ -36,6 +36,31 @@ var Ashmont_polyline = [
 	{lat: 42.284652 , lng:-71.06448899999999}, //Ashmont
 ];
 
+var redLineCoordinates = 
+{
+	"Alewife":				[-71.142483, 42.395428],
+	"Davis": 				[-71.121815, 42.39674],
+	"Porter": 				[-71.11914899999999, 42.3884],
+	"Harvard": 				[-71.118956, 42.373362],
+	"Central": 				[-71.118956, 42.373362],
+	"Kendall/MIT": 			[-71.08617653, 42.36249079],
+	"Charles/MGH": 			[-71.070628, 42.361166],
+	"Park Street": 			[-71.0624242, 42.35639457],
+	"Downtown Crossing": 	[-71.060225, 42.355518],
+	"South Station": 		[-71.05524200000001, 42.352271],
+	"Broadway": 			[-71.056967, 42.342622],
+	"Andrew": 				[-71.057655, 42.330154],
+	"JFK/UMass": 			[-71.052391, 42.320685],
+	"North Quincy":			[-71.0203369, 42.275275],
+	"Wollaston": 			[-71.0203369, 42.2665139],
+	"Quincy Central":		[-71.005409, 42.251809],
+	"Quincy Adams": 		[-71.007153, 42.233391],
+	"Braintree": 			[-71.0011385, 42.2078543],
+	"Savin Hill": 			[-71.053331, 42.31129],
+	"Fields Corner": 		[-71.061667, 42.300093],
+	"Shawmut": 				[-71.06573796000001, 42.29312583],
+	"Ashmont": 				[-71.06448899999999, 42.284652]
+}
 
 
 function initMap() {
@@ -84,9 +109,97 @@ function showTrainData(timedata){
       title: "Current location",
       icon:"me.png"
     });
+/*
+    google.maps.event.addListener(user, 'click', function() {
+        info = nearestStation(user, marker, stationLatLongs, stationNames);
+        infowindow.setContent(info);
+        infowindow.open(map, this);
+    }); 
+*/
     marker.setMap(map); 
+
 }
 
+function nearestStation(){
+
+	var shortest_distance = haversineDistance([curr_long,curr_lat], [-71.142483, 42.395428], true);
+	var longitude = -71.142483;
+	var latitude = 42.395428;
+
+	for (i in redLineCoordinates) {
+		var coords = redLineCoordinates[i];
+		var distance = haversineDistance([curr_long, curr_lat], coords, true);
+
+		if (distance < shortest_distance) {
+			shortest_distance = distance;
+			closest_station = station;
+			distance_to_station = distance;
+			latitude = coords[1];
+			longitude = coords[0];
+		}
+	}
+
+	var closest_position = new google.maps.LatLng(latitude. longitude);
+	var nearby_station = [user, closest_position];
+
+	 var nearby_path = new google.maps.Polyline({
+    	path:nearby_station,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+    nearby_path.setMap(map);
+
+}
+
+function getPolyline(){
+
+	var Ashmont_path = new google.maps.Polyline( {
+                path:Ashmont_polyline,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+        });
+        Ashmont_path.setMap(map);
+
+    var Braintree_path = new google.maps.Polyline( {
+                path:Braintree_polyline,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+        });
+        Braintree_path.setMap(map);
+}
+
+//http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+function haversineDistance(coords1, coords2, isMiles) {
+        function toRad(x) {
+                return x * Math.PI / 180;
+        }
+
+        var lon1 = coords1[0];
+        var lat1 = coords1[1];
+
+        var lon2 = coords2[0];
+        var lat2 = coords2[1];
+
+        var R = 6371; // km
+
+        var x1 = lat2 - lat1;
+        var dLat = toRad(x1);
+        var x2 = lon2 - lon1;
+        var dLon = toRad(x2)
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+
+        if(isMiles) d /= 1.60934;
+
+        return d;
+}
 
 function setMarker(){
 
@@ -245,54 +358,6 @@ function setMarker(){
  	});
   	Ashmont.setMap(map);
 
-}
-
-function getPolyline(){
-
-	var Ashmont_path = new google.maps.Polyline( {
-                path:Ashmont_polyline,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-        });
-        Ashmont_path.setMap(map);
-
-    var Braintree_path = new google.maps.Polyline( {
-                path:Braintree_polyline,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-        });
-        Braintree_path.setMap(map);
-}
-
-//http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
-function haversineDistance(coords1, coords2, isMiles) {
-        function toRad(x) {
-                return x * Math.PI / 180;
-        }
-
-        var lon1 = coords1[0];
-        var lat1 = coords1[1];
-
-        var lon2 = coords2[0];
-        var lat2 = coords2[1];
-
-        var R = 6371; // km
-
-        var x1 = lat2 - lat1;
-        var dLat = toRad(x1);
-        var x2 = lon2 - lon1;
-        var dLon = toRad(x2)
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-
-        if(isMiles) d /= 1.60934;
-
-        return d;
 }
 
 
