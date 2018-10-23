@@ -109,6 +109,8 @@ function showTrainData(timedata){
       title: "Current location",
       icon:"me.png"
     });
+
+    //pop up window for my location
 /*
     google.maps.event.addListener(user, 'click', function() {
         info = nearestStation(user, marker, stationLatLongs, stationNames);
@@ -201,9 +203,16 @@ function haversineDistance(coords1, coords2, isMiles) {
         return d;
 }
 
+get_info(){
+
+
+}
+
 function setMarker(){
 
 	var image_marker = 'mbta.png';
+
+	//Alewife 
   	var Alewife = new google.maps.Marker({
    		position: {lat: 42.395428, lng: -71.142483},
     	map: map,
@@ -211,6 +220,14 @@ function setMarker(){
  	});
   	Alewife.setMap(map);
 
+  	//pop up window to show the time of the trains
+  	google.maps.event.addListener(Alewife, 'click', function()){
+  		staion_info = get_info(Alewife.title);
+  		infowindow.setContent(Alewife.title + "<br /> " + station_info);
+  		infowindow.open(map, Alewife);
+  	}
+
+  	//Davis 
   	var Davis = new google.maps.Marker({
    		position: {lat: 42.39674, lng: -71.121815},
     	map: map,
@@ -218,6 +235,7 @@ function setMarker(){
  	});
   	Davis.setMap(map);
 
+  	//Porter Square
   	var Porter_Square = new google.maps.Marker({
    		position: {lat: 42.3884, lng: -71.11914899999999},
     	map: map,
