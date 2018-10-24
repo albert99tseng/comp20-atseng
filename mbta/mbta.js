@@ -234,7 +234,6 @@ function get_info(stop_id){
 					var arrival = [];
 					var departure = [];
 					arrival[i] = timedata.data[i].attributes.arrival_time;
-					console.log(timedata.data[i].attributes.arrival_time);
 
 					if (arrival[i] == null){
 						arr[i] = ("Arrival time: None" + "<br>");
