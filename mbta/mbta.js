@@ -226,15 +226,12 @@ function get_info(stop_id){
 			else{
 				var timedata = JSON.parse(request.responseText);
 				get_train();
-				// //checking
-				console.log(api.concat(stop_id));
-				console.log(true);
-				console.log(request.readyState);
 			}
 		}
 	}
 }
 
+//not implemented
 function get_train()
 {
 	var num = timedata.data;
