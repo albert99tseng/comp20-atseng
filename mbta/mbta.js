@@ -6,6 +6,8 @@ var option = {
 	center: {lat: curr_lat, lng: curr_long},
     zoom: 15
 }
+var timedata;
+var timetable;
 var distanceToMyStation = 0;
 var closestStation = "Closest Station";
 shortest_distance = haversineDistance([curr_long,curr_lat], [-71.142483, 42.395428], true);
@@ -69,8 +71,11 @@ var redLineCoordinates =
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), option);
     myLocation();
+    setMarker();
+    getPolyline();
 }
 
+//getting current location
 function myLocation(){
 	if (navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
@@ -85,7 +90,9 @@ function myLocation(){
 
 }
 
+
 function renderMap(){
+
 	request.open('GET', 'https://chicken-of-the-sea.herokuapp.com/redline/schedule.json', true);
 	request.send();
 	request.onreadystatechange = function(){
@@ -96,12 +103,11 @@ function renderMap(){
 			else{
 				var timedata = JSON.parse(request.responseText);
 				showTrainData(timedata);
-				setMarker();
-    			getPolyline();
 			}
 		}
 	}
 }
+
 
 function showTrainData(timedata){
 
@@ -117,26 +123,17 @@ function showTrainData(timedata){
     });
     marker.setMap(map);
 
-    //pop up window for my location
+    //pop up window for my location stating closest train station
     google.maps.event.addListener(marker, 'click', function(){
-  		//staion_info = get_info(Alewife.title);
-  		//infowindow.setContent(marker.title);
   		info = nearestStation();
   		infowindow.setContent("Closest station is: " + closest_station + " which is " + shortest_distance 
   							   + " miles away.", info);
   		infowindow.open(map,marker);
   	});
-/*
-    google.maps.event.addListener(user, 'click', function() {
-        info = nearestStation(user, marker, stationLatLongs, stationNames);
-        infowindow.setContent(info);
-        infowindow.open(map, this);
-    }); 
-*/
     marker.setMap(map); 
-
 }
 
+//finding the nearest t-stop
 function nearestStation(){
 	var longitude = -71.142483;
 	var latitude = 42.395428;
@@ -165,11 +162,7 @@ function nearestStation(){
         strokeOpacity: 1.0,
         strokeWeight: 2
     });
-
     nearby_path.setMap(map);
-
-    console.log(shortest_distance);
-    console.log(closest_station);
 }
 
 function getPolyline(){
@@ -220,14 +213,38 @@ function haversineDistance(coords1, coords2, isMiles) {
        	return d;
 }
 
-function get_info(){
-
-
-
+function get_info(stop_id){
+	
+	var api = 'https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id='
+	request.open('GET', api.concat(stop_id), true);
+	request.send();
+	request.onreadystatechange = function(){
+		if (request.readyState == XMLHttpRequest.DONE){
+			if (request.status != 200){
+				alert("Can't load train data")
+			}
+			else{
+				var timedata = JSON.parse(request.responseText);
+				get_train();
+				// //checking
+				console.log(api.concat(stop_id));
+				console.log(true);
+				console.log(request.readyState);
+			}
+		}
+	}
 }
 
+function get_train()
+{
+	var num = timedata.data;
+	console.log(num);
+}
+
+//setting the markers for each stop
 function setMarker(){
 
+	var stop;
 	var image_marker = 'mbta.png';
 	var infowindow = new google.maps.InfoWindow();
 
@@ -242,8 +259,9 @@ function setMarker(){
 
   	//pop up window to show the time of the trains
   	google.maps.event.addListener(Alewife, 'click', function(){
-  		//staion_info = get_info(Alewife.title);
-  		infowindow.setContent(Alewife.title);
+  		stop = 'place-alfcl';
+  		station_info = get_info(stop);
+  		infowindow.setContent(Alewife.title, station_info);
   		infowindow.open(map,Alewife);
   	});
 
@@ -257,7 +275,8 @@ function setMarker(){
   	Davis.setMap(map);
 
   	google.maps.event.addListener(Davis, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-davis';
+  		station_info = get_info(stop);
   		infowindow.setContent(Davis.title);
   		infowindow.open(map,Davis);
   	});
@@ -269,11 +288,11 @@ function setMarker(){
     	icon: image_marker,
     	title: "Porter Sqaure"
  	});
-
   	Porter_Square.setMap(map);
 
   	google.maps.event.addListener(Porter_Square, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-portr';
+  		station_info = get_info(stop);
   		infowindow.setContent(Porter_Square.title);
   		infowindow.open(map,Porter_Square);
   	});
@@ -288,7 +307,8 @@ function setMarker(){
   	Harvard_Square.setMap(map);
 
   	google.maps.event.addListener(Harvard_Square, 'click', function(){
-  		//staion_info = get_info(Harvard_sqaure.title);
+  		stop = 'place-harsq';
+  		station_info = get_info(stop);
   		infowindow.setContent(Harvard_Square.title);
   		infowindow.open(map,Harvard_Square);
   	});
@@ -303,7 +323,8 @@ function setMarker(){
   	Central_Square.setMap(map);
 
   	google.maps.event.addListener(Central_Square, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-cntsq';
+  		station_info = get_info(stop);
   		infowindow.setContent(Central_Square.title);
   		infowindow.open(map,Central_Square);
   	});
@@ -318,7 +339,8 @@ function setMarker(){
   	Kendall_MIT.setMap(map);
 
   	google.maps.event.addListener(Kendall_MIT, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-knncl';
+  		station_info = get_info(stop);
   		infowindow.setContent(Kendall_MIT.title);
   		infowindow.open(map,Kendall_MIT);
   	});
@@ -333,7 +355,8 @@ function setMarker(){
   	Charles_MGH.setMap(map);
 
   	google.maps.event.addListener(Charles_MGH, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-chmnl';
+  		station_info = get_info(stop);
   		infowindow.setContent(Charles_MGH.title);
   		infowindow.open(map,Charles_MGH);
   	});
@@ -348,7 +371,8 @@ function setMarker(){
   	Park_Street.setMap(map);
 
   	google.maps.event.addListener(Park_Street, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-pktrm';
+  		station_info = get_info(stop);
   		infowindow.setContent(Park_Street.title);
   		infowindow.open(map,Park_Street);
   	});
@@ -363,7 +387,8 @@ function setMarker(){
   	Downtown_Crossing.setMap(map);
 
   	google.maps.event.addListener(Downtown_Crossing, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-dwnxg';
+  		station_info = get_info(stop);
   		infowindow.setContent(Downtown_Crossing.title);
   		infowindow.open(map,Downtown_Crossing);
   	});
@@ -378,7 +403,8 @@ function setMarker(){
   	South_Station.setMap(map);
 
   	google.maps.event.addListener(South_Station, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-sstat';
+  		station_info = get_info(stop);
   		infowindow.setContent(South_Station.title);
   		infowindow.open(map,South_Station);
   	});
@@ -393,7 +419,8 @@ function setMarker(){
   	Broadway.setMap(map);
 
   	google.maps.event.addListener(Broadway, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-brdwy';
+  		station_info = get_info(stop);
   		infowindow.setContent(Broadway.title);
   		infowindow.open(map,Broadway);
   	});
@@ -408,7 +435,8 @@ function setMarker(){
   	Andrew.setMap(map);
 
   	google.maps.event.addListener(Andrew, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-andrw';
+  		station_info = get_info(stop);
   		infowindow.setContent(Andrew.title);
   		infowindow.open(map,Andrew);
   	});
@@ -423,7 +451,8 @@ function setMarker(){
   	JFK_UMass.setMap(map);
 
   	google.maps.event.addListener(JFK_UMass, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-jfk';
+  		station_info = get_info(stop);
   		infowindow.setContent(JFK_UMass.title);
   		infowindow.open(map,JFK_UMass);
   	});
@@ -438,7 +467,8 @@ function setMarker(){
   	North_Quincy.setMap(map)
 
   	google.maps.event.addListener(North_Quincy, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-nqncy';
+  		station_info = get_info(stop);
   		infowindow.setContent(North_Quincy.title);
   		infowindow.open(map,North_Quincy);
   	});
@@ -453,7 +483,8 @@ function setMarker(){
   	Wallaston.setMap(map);
 
   	google.maps.event.addListener(Wallaston, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-wlsta';
+  		station_info = get_info(stop);
   		infowindow.setContent(Wallaston.title);
   		infowindow.open(map,Wallaston);
   	});
@@ -467,8 +498,9 @@ function setMarker(){
  	});
   	Quincy_Center.setMap(map);
 
-  	google.maps.event.addListener(Quincy_Center, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  	 google.maps.event.addListener(Quincy_Center, 'click', function(){
+  	 	stop = 'place-qnctr';
+  		station_info = get_info(stop);
   		infowindow.setContent(Quincy_Center.title);
   		infowindow.open(map,Quincy_Center);
   	});
@@ -483,7 +515,8 @@ function setMarker(){
   	Quincy_Adams.setMap(map);
 
   	google.maps.event.addListener(Quincy_Adams, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-qamnl';
+  		station_info = get_info(stop);
   		infowindow.setContent(Quincy_Adams.title);
   		infowindow.open(map,Quincy_Adams);
   	});
@@ -498,7 +531,8 @@ function setMarker(){
   	Braintree.setMap(map);
 
   	google.maps.event.addListener(Braintree, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-brntn';
+  		station_info = get_info(stop);
   		infowindow.setContent(Braintree.title);
   		infowindow.open(map,Braintree);
   	});
@@ -513,7 +547,8 @@ function setMarker(){
   	Savin_Hill.setMap(map);
 
   	google.maps.event.addListener(Savin_Hill, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-shmnl';
+  		station_info = get_info(stop);
   		infowindow.setContent(Savin_Hill.title);
   		infowindow.open(map,Savin_Hill);
   	});
@@ -528,7 +563,8 @@ function setMarker(){
   	Fells_Corner.setMap(map);
 
   	google.maps.event.addListener(Fells_Corner, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-fldcr';
+  		station_info = get_info(stop);
   		infowindow.setContent(Fells_Corner.title);
   		infowindow.open(map,Fells_Corner);
   	});
@@ -543,7 +579,8 @@ function setMarker(){
   	Shawmut.setMap(map);
 
   	google.maps.event.addListener(Shawmut, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-smmnl';
+  		station_info = get_info(stop);
   		infowindow.setContent(Shawmut.title);
   		infowindow.open(map,Shawmut);
   	});
@@ -558,7 +595,8 @@ function setMarker(){
   	Ashmont.setMap(map);
 
   	google.maps.event.addListener(Ashmont, 'click', function(){
-  		//staion_info = get_info(Davis.title);
+  		stop = 'place-asmnl';
+  		station_info = get_info(stop);
   		infowindow.setContent(Ashmont.title);
   		infowindow.open(map,Ashmont);
   	});
