@@ -28,29 +28,39 @@ app.post("/submit", function(request, response){
 		var scr = parseInt(new_scr);
 		var gd = request.body.grid;
 
-		var toInsert = {username: usr,
-                  score: scr,
-                  grid: gd,
-                  created_at: new Date()
-              };
+		if( usr && scr && gd ){
 
-    	db.collection('scores', function(error, coll) {
-    		if (error){
-    			console.log("Error: " + error);
-				response.send(500);
-    		}
-    		else {
-				coll.insert(toInsert, function(error, saved) {
-					if (error) {
-						console.log("Error: " + error);
-						response.send(500);
-					}
-					else {
-						response.send([]);
-					}
-					});
-			}
-		});
+			var toInsert = {username: usr,
+	                  score: scr,
+	                  grid: gd,
+	                  created_at: new Date()
+	              };
+
+	    	db.collection('scores', function(error, coll) {
+	    		if (error){
+	    			console.log("Error: " + error);
+					response.send(500);
+	    		}
+	    		else {
+					coll.insert(toInsert, function(error, saved) {
+						if (error) {
+							console.log("Error: " + error);
+							response.send(500);
+						}
+						else {
+							response.send(saved);
+						}
+						});
+				}
+			});
+		}
+
+		else {
+			response.send(saved);
+		}
+
+
+
 	} 
 
 	catch (err) {
@@ -85,8 +95,7 @@ app.get("/", function(request, response){
 						{
 							indexPage += "<!DOCTYPE HTML><html><head><title>2048 Game Center</title></head><body><h1>2048 Game Center</h1><span class=\"subheader\"> Your 2048 progress: </span> <table><tbody><tr><th>User</th><th>Score</th><th>Timestamp</th></tr>";
 
-							//gets top 10 scores
-							for (var count = 0; count < 10; count++) {
+							for (var count = 0; count < cursor.length; count++) {
 								indexPage += "<tr><td>" + cursor[count].username + "</td>";
 								indexPage += "<td>" + cursor[count].score + "</td>";
 								indexPage += "<td>" + cursor[count].created_at + "</td></tr>";
