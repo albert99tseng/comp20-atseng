@@ -28,7 +28,6 @@ app.post("/submit", function(request, response){
 		var scr = parseInt(new_scr);
 		var gd = request.body.grid;
 
-		if( usr && scr && gd ){
 
 			var toInsert = {username: usr,
 	                  score: scr,
@@ -37,30 +36,31 @@ app.post("/submit", function(request, response){
 	              };
 
 	    	db.collection('scores', function(error, coll) {
-	    		if (error){
-	    			console.log("Error: " + error);
-					response.send(500);
-	    		}
-	    		else {
-					coll.insert(toInsert, function(error, saved) {
-						if (error) {
-							console.log("Error: " + error);
-							response.send(500);
-						}
-						else {
-							response.send(saved);
-						}
+	    		if( usr && scr && gd ){
+						coll.insert(toInsert, function(error, saved) {
+							if (error) {
+								console.log("Error: " + error);
+								response.send(500);
+							}
+							else {
+								coll.find().sort({score:-1}).limit(10).toArray(function(err, results){
+									response.send(results);
+									//change to results
+								});
+							}
 						});
+					
 				}
+				else{
+					coll.find().sort({score:-1}).limit(10).toArray(function(err, results){
+						response.send(results);
+						//change to results
+					});
+
+				}
+
+
 			});
-		}
-
-		else {
-			response.send(saved);
-		}
-
-
-
 	} 
 
 	catch (err) {
