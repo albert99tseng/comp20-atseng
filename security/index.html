@@ -2,16 +2,32 @@
 <html>
 	<head> 
 		<title> Security 4 Homework </title>
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	</head>
 
 	<body>
 		<h1> Assignment 4: Security and Privacy of Assignment 3 </h1>
 		Albert Tseng
-
 		<h2> Introduction </h2>
 		<p> The purpose of this assignemnt was to find privacy and security issues in assignment 3 created by Manish Aryal. <br>
 			In assignment 3, we created a server that accepts game grids and final scores and adds them to a colelction in <br>
 			the MongoDB database we created for the popular game 2048. The assignment nothing about security so for this <br>
 			assignment, I given the task to examine security vulnerabilities in his web by performing multiple attacks. 
 		</p>
+
+		<h2> Methodology </h2>
+		<p> Without looking at the code, I started testing the application and trying the identify vulnerabilities by using <br>
+			query strings, command curl, and source code analysis. By using curl and query strings I was able to find some <br>
+			vulnerabilities and security and privacy issues. 
+		<p>
+
+		<h2>Abstract of Findings</h2>
+		<p> 1. <strong> Cross Site Scripting (XSS) </strong>  - Attackers can upload a gif onto the webpage </p>
+		<p> 2. <strong> CORS Vulnerability </strong>  - Using an asterisk allow 
+		<p> 3. <strong> Inserting HTML Vulnerability </strong>  - Inserted gif into the username when it's not suppose to</p>
+
+		<h2>Issues Found </h2>
+		<p> 1. <strong> Cross Site Scripting (XSS) </strong><br>
+			Location of Issue: <br>
+			<img scr= "xss_code.png" alt = "XSS Code" >
+			
+
