@@ -11,23 +11,55 @@
 		<p> The purpose of this assignemnt was to find privacy and security issues in assignment 3 created by Manish Aryal. <br>
 			In assignment 3, we created a server that accepts game grids and final scores and adds them to a colelction in <br>
 			the MongoDB database we created for the popular game 2048. The assignment nothing about security so for this <br>
-			assignment, I given the task to examine security vulnerabilities in his web by performing multiple attacks. 
+			assignment, I given the task to examine security vulnerabilities in his web by performing multiple attacks. <br><br>
 		</p>
 
 		<h2> Methodology </h2>
 		<p> Without looking at the code, I started testing the application and trying the identify vulnerabilities by using <br>
 			query strings, command curl, and source code analysis. By using curl and query strings I was able to find some <br>
-			vulnerabilities and security and privacy issues. 
+			vulnerabilities and security and privacy issues. <br><br>
 		<p>
 
 		<h2>Abstract of Findings</h2>
-		<p> 1. <strong> Cross Site Scripting (XSS) </strong>  - Attackers can upload a gif onto the webpage </p>
-		<p> 2. <strong> CORS Vulnerability </strong>  - Using an asterisk allow 
-		<p> 3. <strong> Inserting HTML Vulnerability </strong>  - Inserted gif into the username when it's not suppose to</p>
+		<p> 1. <strong> Cross Site Scripting (XSS) </strong>  - Attackers can replace data on the webpage </p>
+		<p> 2. <strong> CORS Vulnerability </strong>  - Using an asterisk allow anyone else to mount a website in public</p>
+		<p> 3. <strong> Inserting HTML Vulnerability </strong>  - Inserted data into the username when it's not suppose to <br><br></p>
 
 		<h2>Issues Found </h2>
-		<p> 1. <strong> Cross Site Scripting (XSS) </strong><br>
-			Location of Issue: <br>
-			<img scr= "xss_code.png" alt = "XSS Code" >
-			
+		<p> 1. <strong> Cross Site Scripting (XSS) </strong><br><br>
+			I used a script and inserted this script a gif into the username. The assignment wasn't expecting a gif of an animal <br>
+			to over take the entire screen and was caught by surprise. Below is the script I used to insert the gif.
+			<br><br>
+			<img src= "xss_code.png" alt = "XSS Code" width= "1000">
+			<br><br>
+			This is what is looks like when I reloaded the page with the script. As you can see, the gif took over the entire page of the web server.
+			<br><br>
+			<img src= "xss_gif.png" alt = "XSS Gif" width = "700">
+			<br><br>
+			The severity of this issue is high because by entering a script in the username portion while curling, a hacker can overtake <br>
+			an entire website. By doing this, the hacker replaces the data for a certain amount of time with the gif. The link and the XSS <br>
+			vulnerability cause the script to load from an external website into the target web page. To solve this problem, it is essential <br>
+			that Web applications to be developed using some form of security development lifecycle (SDL). SDL's aim is to reduce the <br>
+			number of security-related design and coding errors in an application, and reduce the severity of any errors that remain undetected.<br>
+		</p>
+
+		<p> 2. <strong> CORS VUlnerability </strong><br><br>
+
+
+
+
+
+
+
+		<h2>References</h2>
+		<p>
+			<a href="https://www.owasp.org/index.php/Top_10_2013-Top_10">Open Web Application Security Project's list of top 10 vulnerabilities</a> <br>
+			<a href="https://www.wordfence.com/learn/how-to-prevent-cross-site-scripting-attacks/"> How to Prevent XSS Attacks </a><br>
+			<a href="https://paulhammant.com/2016/01/02/cors-vulnerabilities/"> CORS Vulnerabilities </a>
+
+		</p>
+
+
+
+
 
