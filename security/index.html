@@ -6,7 +6,7 @@
 
 	<body>
 		<h1> Assignment 4: Security and Privacy of Assignment 3 </h1>
-		Albert Tseng
+		 Created by: Albert Tseng
 		<h2> Introduction </h2>
 		<p> The purpose of this assignemnt was to find privacy and security issues in assignment 3 created by Manish Aryal. <br>
 			In assignment 3, we created a server that accepts game grids and final scores and adds them to a colelction in <br>
@@ -30,33 +30,67 @@
 			I used a script and inserted this script a gif into the username. The assignment wasn't expecting a gif of an animal <br>
 			to over take the entire screen and was caught by surprise. Below is the script I used to insert the gif.
 			<br><br>
-			<img src= "xss_code.png" alt = "XSS Code" width= "1000">
+			<img src= "xss_code.png" alt = "XSS Code" width= "700">
 			<br><br>
 			This is what is looks like when I reloaded the page with the script. As you can see, the gif took over the entire page of the web server.
 			<br><br>
 			<img src= "xss_gif.png" alt = "XSS Gif" width = "700">
 			<br><br>
-			The severity of this issue is high because by entering a script in the username portion while curling, a hacker can overtake <br>
+			The severity of this issue is HIGH because by entering a script in the username portion while curling, a hacker can overtake <br>
 			an entire website. By doing this, the hacker replaces the data for a certain amount of time with the gif. The link and the XSS <br>
 			vulnerability cause the script to load from an external website into the target web page. To solve this problem, it is essential <br>
 			that Web applications to be developed using some form of security development lifecycle (SDL). SDL's aim is to reduce the <br>
 			number of security-related design and coding errors in an application, and reduce the severity of any errors that remain undetected.<br>
 		</p>
 
-		<p> 2. <strong> CORS VUlnerability </strong><br><br>
+		<p> 2. <strong> CORS Vulnerability </strong><br><br>
+			For this vulnerability, I went directly into the source code to find it. The "*" in res.header("Access-Contorol-Allow-Origin", "*") <br>
+			allows users to curl data into the web server. With an asterisk configuration of the CORS server, it is possible for anyone else to <br>
+			mount a website in public. Because of this it allows others to interoperate with a users data. Even if you authenticate against that <br>
+			data, the “*” mounting of it, allows for third-parties to deploy first class applications interoperating with one's data. In Manish's code, <br>
+			ALL Cross Origin Resource Sharing requests in the CORS Headers. 
+			<br><br>
+			<img src = "cors.png" alt = "CORS" width ="700">
+			<br><br>
+			The severity of this is LOW because the data entered in this web applciation is just the username, score and the grid. However if it were <br>
+			to be a web application with something confidential such as a persons contact information, the severity this vulnerability would be very high. <br>
+			To solve this problem, is by restricting the CORS by enabling it, to a single route, like shown below:
+			<br><br>
+			<img src = "cors_single.png" alt = "Cors Single" width = "700">
+		</p>
 
+		<p> 3. <strong> Inserting HTML Vulnerability </strong> <br><br>
+			For this vulnerability, I instered a HTML code that linked to a potato gif and instered into the username of the data. I used the gif <br>"https://media.giphy.com/media/l3q2yYNt8DXoyKRdm/giphy.gif" to created the vulnerability.
+			<br><br>
+			<img src = "html_code.png" alt = "HTML CODE" width ="700">
+			<br><br>
+			When I inserted the gif into the username portion of the database, the gif instantly replaces the part where an actual username is suppose <br>
+			to be. This is what happened:
+			<br><br>
+			<img src ="html_gif.png" alt = "HTML GIF" width ="600">
+			<br><br>
+			The severity of this issue is LOW for this case beasue the web application only takes in username, scores, and grid. Since a username <br>
+			for the game 2048 is really important, it big harm isn't done. However, if was something confidential, doing this allows data to be completely <br>
+			erased and replaced which can cause a huge problem. A solution to this problem would be to use a HTML Injection scanner. For example, the WAS <br>
+			application can be used as it tests with the different inputs and not just stops with the first failed. Using the injection scanner can help <br>
+			prevent an inserting HTML vulnerability.
+			<br><br>
+		</p>
 
+		<h2>Conclusion</h2>
+		<p> This exercise illustrated that if you naively create a working app with no security considerations, it's incredibly easy to inject data, <br>
+			destroy code, and steal sensitive information. This is very important because without knowing these possible vulnerabilities and how <br>
+			to prevent it, your web application wouldn't be secure at all.
+			<br><br>
+		</p>
 
-
-
-
-
+		
 		<h2>References</h2>
 		<p>
 			<a href="https://www.owasp.org/index.php/Top_10_2013-Top_10">Open Web Application Security Project's list of top 10 vulnerabilities</a> <br>
 			<a href="https://www.wordfence.com/learn/how-to-prevent-cross-site-scripting-attacks/"> How to Prevent XSS Attacks </a><br>
-			<a href="https://paulhammant.com/2016/01/02/cors-vulnerabilities/"> CORS Vulnerabilities </a>
-
+			<a href="https://paulhammant.com/2016/01/02/cors-vulnerabilities/"> CORS Vulnerabilities </a> <br>
+			<a href="https://www.softwaretestinghelp.com/html-injection-tutorial/"> HTML Injection Prevention </a>
 		</p>
 
 
