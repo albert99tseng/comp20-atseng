@@ -9,25 +9,26 @@
 		 Created by: Albert Tseng
 		<h2> Introduction </h2>
 		<p> The purpose of this assignemnt was to find privacy and security issues in assignment 3 created by Manish Aryal. <br>
-			In assignment 3, we created a server that accepts game grids and final scores and adds them to a colelction in <br>
-			the MongoDB database we created for the popular game 2048. The assignment nothing about security so for this <br>
+			In assignment 3, we created a server that accepts game grids and final scores and added them to a collection in <br>
+			the MongoDB database we created for the popular game 2048. The assignment was about security so for this <br>
 			assignment, I given the task to examine security vulnerabilities in his web by performing multiple attacks. <br><br>
 		</p>
 
 		<h2> Methodology </h2>
 		<p> Without looking at the code, I started testing the application and trying the identify vulnerabilities by using <br>
 			query strings, command curl, and source code analysis. By using curl and query strings I was able to find some <br>
-			vulnerabilities and security and privacy issues. <br><br>
+			vulnerabilities and security and privacy issues. After, I looked at his source code in more depth to figure out<br>
+			other types of vulnerabilities that may have occurred <br><br>
 		<p>
 
 		<h2>Abstract of Findings</h2>
 		<p> 1. <strong> Cross Site Scripting (XSS) </strong>  - Attackers can replace data on the webpage </p>
 		<p> 2. <strong> CORS Vulnerability </strong>  - Using an asterisk allow anyone else to mount a website in public</p>
-		<p> 3. <strong> Inserting HTML Vulnerability </strong>  - Inserted data into the username when it's not suppose to <br><br></p>
+		<p> 3. <strong> Inserting HTML Vulnerability </strong>  - Inserted HTML data into the username when it's not suppose to <br><br></p>
 
 		<h2>Issues Found </h2>
 		<p> 1. <strong> Cross Site Scripting (XSS) </strong><br><br>
-			I used a script and inserted this script a gif into the username. The assignment wasn't expecting a gif of an animal <br>
+			I used a script and inserted a script of a <a href ="https://media.giphy.com/media/3oKIPvQWkVBKRkPYJy/giphy.gif"> weird funky gif</a> into the username. The assignment wasn't expecting a gif of an animal <br>
 			to over take the entire screen and was caught by surprise. Below is the script I used to insert the gif.
 			<br><br>
 			<img src= "xss_code.png" alt = "XSS Code" width= "700">
@@ -39,7 +40,7 @@
 			The severity of this issue is HIGH because by entering a script in the username portion while curling, a hacker can overtake <br>
 			an entire website. By doing this, the hacker replaces the data for a certain amount of time with the gif. The link and the XSS <br>
 			vulnerability cause the script to load from an external website into the target web page. To solve this problem, it is essential <br>
-			that Web applications to be developed using some form of security development lifecycle (SDL). SDL's aim is to reduce the <br>
+			that web applications to be developed using some form of security development lifecycle (SDL). SDL's aim is to reduce the <br>
 			number of security-related design and coding errors in an application, and reduce the severity of any errors that remain undetected.<br>
 		</p>
 
@@ -54,13 +55,14 @@
 			<br><br>
 			The severity of this is LOW because the data entered in this web applciation is just the username, score and the grid. However if it were <br>
 			to be a web application with something confidential such as a persons contact information, the severity this vulnerability would be very high. <br>
-			To solve this problem, is by restricting the CORS by enabling it, to a single route, like shown below:
+			One way of solving this problem, is by restricting the CORS by enabling it, to a single route, like shown below:
 			<br><br>
 			<img src = "cors_single.png" alt = "Cors Single" width = "700">
 		</p>
 
 		<p> 3. <strong> Inserting HTML Vulnerability </strong> <br><br>
-			For this vulnerability, I instered a HTML code that linked to a potato gif and instered into the username of the data. I used the gif <br>"https://media.giphy.com/media/l3q2yYNt8DXoyKRdm/giphy.gif" to created the vulnerability.
+			For this vulnerability, I instered a HTML code that linked to a potato gif and instered into the username of the data. I used the <br>     
+			<a href ="https://media.giphy.com/media/l3q2yYNt8DXoyKRdm/giphy.gif"> potato gif</a> to created the vulnerability.
 			<br><br>
 			<img src = "html_code.png" alt = "HTML CODE" width ="700">
 			<br><br>
@@ -70,7 +72,7 @@
 			<img src ="html_gif.png" alt = "HTML GIF" width ="600">
 			<br><br>
 			The severity of this issue is LOW for this case beasue the web application only takes in username, scores, and grid. Since a username <br>
-			for the game 2048 is really important, it big harm isn't done. However, if was something confidential, doing this allows data to be completely <br>
+			for the game 2048 isn't really important, big harm isn't done. However, if was something confidential, doing this allows data to be completely <br>
 			erased and replaced which can cause a huge problem. A solution to this problem would be to use a HTML Injection scanner. For example, the WAS <br>
 			application can be used as it tests with the different inputs and not just stops with the first failed. Using the injection scanner can help <br>
 			prevent an inserting HTML vulnerability.
